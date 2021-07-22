@@ -26,7 +26,7 @@ Flow effects have jitter when moving the map
 
 Description：
 
-I implemented a flow effect using threejs
+I implemented a flow effect using threejs:
 ![](./screenshot/threejs-effect.png)
 Here`s [threejs code](./threejs.html)。
 
