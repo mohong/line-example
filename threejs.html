@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>threejs</title>
+    <link href="./dist/threebox.css" rel="stylesheet" >
+    <script src="./dist/threebox.js"></script>
+    <script src="./dist/OrbitControls.js"></script>
+</head>
+<body>
+    <script type="module">
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
+        camera.position.set(120, 50, 10)
+        
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        document.body.appendChild( renderer.domElement );
+
+        const controls = new THREE.OrbitControls( camera, renderer.domElement );
+
+
+        const path = [
+            [-50, 0, -50],
+            [-40, 0, -40],
+            [-30, 0, -30],
+            [-20, 0, -20],
+            [-10, 0, -10],
+            [0, 0, 0],
+            [10, 0, 10],
+            [20, 0, 20],
+            [30, 0, 30],
+            [40, 0, 40],
+            [50, 0, 50]
+        ]
+
+        const points = path.map(item => new THREE.Vector3(...item))
+        const curve = new THREE.CatmullRomCurve3(points)
+        const tubularSegments = 10, radius = 1, radialSegments = 8
+        const geometry = new THREE.TubeGeometry(curve, tubularSegments, radius, radialSegments)
+        
+        const textureLoader = new THREE.TextureLoader()
+        const texture = textureLoader.load('./texture/red_line.png')
+        texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+        texture.repeat.set(1, 1)
+        texture.needsUpdate = true
+
+        const material = new THREE.MeshBasicMaterial({
+            map: texture,
+            side: THREE.BackSide,
+            transparent: true
+        })
+
+        const mesh = new THREE.Mesh(geometry, material)
+        scene.add(mesh)
+
+
+        const size = 10;
+        const divisions = 10;
+        const gridHelper = new THREE.GridHelper( size, divisions );
+        scene.add( gridHelper );
+
+        const animate = function () {
+            requestAnimationFrame( animate );
+            controls.update();
+
+            texture.offset.x -= -0.01;
+
+            renderer.render( scene, camera );
+        };
+
+        animate();
+    </script>
+</body>
+</html>
