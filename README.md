@@ -28,11 +28,12 @@ Description：
 
 I implemented a flow effect using threejs:
 ![](./screenshot/threejs-effect.png)
-Here`s [threejs code](./threejs.html)。
+[threejs code](./threejs.html), [preview](http://arthas.com.cn/line-example/threejs.html)
 
 Use the same method to achieve the same effect in threebox:
 ![](./screenshot/threebox-effect.png)
-Here`s [threebox code](./threebox.html), but it has a jiggle when moving the map:
+Here`s [threebox code](./threebox.html), [preview](http://arthas.com.cn/line-example/threebox.html),
+but it has a jiggle when moving the map:
 ![](./screenshot/GIF.gif)
 Why is that? Is there a better way to do it?
 
